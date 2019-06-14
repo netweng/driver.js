@@ -1,5 +1,5 @@
 import {
-  ANIMATION_DURATION_MS,
+  // ANIMATION_DURATION_MS,
   CLASS_DRIVER_HIGHLIGHTED_ELEMENT,
   CLASS_FIX_STACKING_CONTEXT,
   CLASS_POSITION_RELATIVE,
@@ -154,7 +154,7 @@ export default class Element {
     this.removeHighlightClasses();
 
     // If there was any animation in progress, cancel that
-    this.window.clearTimeout(this.animationTimeout);
+    // this.window.clearTimeout(this.animationTimeout);
 
     if (this.options.onDeselected) {
       this.options.onDeselected(this);
@@ -348,19 +348,20 @@ export default class Element {
       return;
     }
 
-    const showAtPosition = this.getCalculatedPosition();
+    this.popover.show(showAtPosition);
+    // const showAtPosition = this.getCalculatedPosition();
 
-    // For first highlight, show it immediately because there won't be any animation
-    let showAfterMs = ANIMATION_DURATION_MS;
-    // If animation is disabled or  if it is the first display, show it immediately
-    if (!this.options.animate || !this.overlay.lastHighlightedElement) {
-      showAfterMs = 0;
-    }
+    // // For first highlight, show it immediately because there won't be any animation
+    // let showAfterMs = ANIMATION_DURATION_MS;
+    // // If animation is disabled or  if it is the first display, show it immediately
+    // if (!this.options.animate || !this.overlay.lastHighlightedElement) {
+    //   showAfterMs = 0;
+    // }
 
     // @todo remove timeout and handle with CSS
-    this.animationTimeout = this.window.setTimeout(() => {
-      this.popover.show(showAtPosition);
-    }, showAfterMs);
+    // this.animationTimeout = this.window.setTimeout(() => {
+    //   this.popover.show(showAtPosition);
+    // }, showAfterMs);
   }
 
   /**
