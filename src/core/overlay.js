@@ -1,4 +1,4 @@
-import {  ID_OVERLAY, OVERLAY_HTML } from '../common/constants';
+import {  ID_OVERLAY, OVERLAY_HTML, ANIMATION_DURATION_MS } from '../common/constants';
 import { createNodeFromString } from '../common/utils';
 
 /**
@@ -69,7 +69,7 @@ export default class Overlay {
 
     // There might be hide timer from last time
     // which might be getting triggered
-    // this.window.clearTimeout(this.hideTimer);
+    window.clearTimeout(this.hideTimer);
 
     // Trigger the hook for highlight started
     element.onHighlightStarted();
@@ -105,15 +105,14 @@ export default class Overlay {
 
     this.attachNode();
 
-    
-    // window.setTimeout(() => {
-    this.node.style.opacity = `${this.options.opacity}`;
-    this.node.style.position = 'fixed';
-    this.node.style.left = '0';
-    this.node.style.top = '0';
-    this.node.style.bottom = '0';
-    this.node.style.right = '0';
-    // });
+    window.setTimeout(() => {
+      this.node.style.opacity = `${this.options.opacity}`;
+      this.node.style.position = 'fixed';
+      this.node.style.left = '0';
+      this.node.style.top = '0';
+      this.node.style.bottom = '0';
+      this.node.style.right = '0';
+    });
   }
 
   /**
@@ -158,12 +157,12 @@ export default class Overlay {
     }
 
     // Clear any existing timers and remove node
-    // this.window.clearTimeout(this.hideTimer);
+    window.clearTimeout(this.hideTimer);
 
     if (this.options.animate && !immediate) {
       this.node.style.opacity = '0';
       this.removeNode();
-      // this.hideTimer = this.window.setTimeout(this.removeNode, ANIMATION_DURATION_MS);
+      this.hideTimer = window.setTimeout(this.removeNode, ANIMATION_DURATION_MS);
     } else {
       this.removeNode();
     }
